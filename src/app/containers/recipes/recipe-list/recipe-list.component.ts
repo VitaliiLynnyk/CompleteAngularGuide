@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 import { Recipe } from '../../../models/recipe.model';
 
@@ -8,6 +8,9 @@ import { Recipe } from '../../../models/recipe.model';
   styleUrls: ['./recipe-list.scss']
 })
 export class RecipeListComponent {
+  @Output()
+  recipeWasSelected = new EventEmitter<Recipe>();
+
   recipes: Recipe[] = [
     new Recipe(
       'Test',
