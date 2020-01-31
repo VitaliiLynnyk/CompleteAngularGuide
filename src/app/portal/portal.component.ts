@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './portal.html',
   styleUrls: ['./portal.scss']
 })
-export class PortalComponent {}
+export class PortalComponent {
+  loadedFeature = 'recipe';
+
+  onNavigate(feature: string) {
+    this.loadedFeature = feature;
+  }
+}
