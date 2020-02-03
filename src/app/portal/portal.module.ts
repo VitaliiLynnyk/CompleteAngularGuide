@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ContainersModule } from '../containers/containers.module';
+import { ContainerModule } from '../containers/container.module';
 import { PortalComponent } from './portal.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    ContainersModule
+    ContainerModule
   ],
   exports: [PortalComponent],
   declarations: [PortalComponent]
