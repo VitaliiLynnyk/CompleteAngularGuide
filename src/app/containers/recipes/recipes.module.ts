@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { DropdownDirective } from '../../directives/dropdown.directive';
+
 import { RecipeListModule } from './recipe-list/recipe-list.module';
 
 import { RecipesComponent } from './recipes.component';
@@ -12,10 +14,12 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
     RecipeListModule
   ],
   exports: [
-    RecipesComponent
+    RecipesComponent,
+    DropdownDirective
   ],
   declarations: [
     RecipesComponent,
+    DropdownDirective,
     RecipeDetailComponent
   ]
 })
