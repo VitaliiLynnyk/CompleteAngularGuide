@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { ShoppingListService } from './services/shopping-list.service';
+
 import { PortalPageModule } from './portal/portal.module';
 
 import { AppComponent } from './app.component';
@@ -13,7 +15,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     PortalPageModule
   ],
-  providers: [],
+  providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

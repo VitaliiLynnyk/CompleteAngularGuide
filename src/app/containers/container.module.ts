@@ -12,7 +12,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 @NgModule({
-  imports: [ CommonModule ],
+  imports: [CommonModule],
   exports: [
     HeaderComponent,
     RecipesComponent,
@@ -33,4 +33,5 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
     RecipeDetailComponent
   ]
 })
-export class ContainerModule {}
+export class ContainerModule {
+}
