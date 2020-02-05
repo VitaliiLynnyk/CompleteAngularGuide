@@ -6,6 +6,8 @@ import {
 
 import { RecipesComponent } from '../containers/recipes/recipes.component';
 import { ShoppingListComponent } from '../containers/shopping-list/shopping-list.component';
+import { RecipeDetailComponent } from '../containers/recipes/recipe-detail/recipe-detail.component';
+import { RecipeInitialComponent } from '../containers/recipes/recipe-initial/recipe-initial.component';
 
 const appRoutes: Routes = [
   {
@@ -15,7 +17,17 @@ const appRoutes: Routes = [
   },
   {
     path: 'recipes',
-    component: RecipesComponent
+    component: RecipesComponent,
+    children: [
+      {
+        path: '',
+        component: RecipeInitialComponent
+      },
+      {
+        path: ':id',
+        component: RecipeDetailComponent
+      }
+    ]
   },
   {
     path: 'shopping-list',
