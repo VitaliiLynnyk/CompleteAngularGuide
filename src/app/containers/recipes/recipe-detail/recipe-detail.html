@@ -22,7 +22,8 @@
        <li><a (click)="recipeService.onAddToShoppingList(recipe.ingredients)"
               style="cursor: pointer;">Add Ingredient to Sh list</a>
        </li>
-       <li><a style="cursor: pointer;">Edit Recipe</a></li>
+       <li><a [routerLink]="['edit']"
+              style="cursor: pointer;">Edit Recipe</a></li>
        <li><a style="cursor: pointer;">Delete Recipe</a></li>
      </ul>
    </div>
