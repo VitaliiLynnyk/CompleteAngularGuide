@@ -12,7 +12,7 @@ import { RecipeInitialComponent } from '../containers/recipes/recipe-initial/rec
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/recipes',
+    redirectTo: 'recipes',
     pathMatch: 'full'
   },
   {
@@ -32,6 +32,10 @@ const appRoutes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'recipes'
   }
 ];
 
