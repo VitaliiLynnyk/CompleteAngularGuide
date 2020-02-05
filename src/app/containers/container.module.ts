@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { DropdownDirective } from '../directives/dropdown.directive';
 
@@ -12,7 +13,10 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   exports: [
     HeaderComponent,
     RecipesComponent,
@@ -33,5 +37,4 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
     RecipeDetailComponent
   ]
 })
-export class ContainerModule {
-}
+export class ContainerModule {}
