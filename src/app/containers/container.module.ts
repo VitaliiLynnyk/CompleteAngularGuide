@@ -12,6 +12,7 @@ import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.com
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeInitialComponent } from './recipes/recipe-initial/recipe-initial.component';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { RecipeInitialComponent } from './recipes/recipe-initial/recipe-initial.
   exports: [
     HeaderComponent,
     RecipesComponent,
+    RecipeEditComponent,
     RecipeItemComponent,
     RecipeListComponent,
     ShoppingListComponent,
@@ -32,6 +34,7 @@ import { RecipeInitialComponent } from './recipes/recipe-initial/recipe-initial.
     HeaderComponent,
     RecipesComponent,
     DropdownDirective,
+    RecipeEditComponent,
     RecipeItemComponent,
     RecipeListComponent,
     ShoppingEditComponent,
