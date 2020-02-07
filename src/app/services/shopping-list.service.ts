@@ -4,10 +4,15 @@ import { Ingredient } from '../models/ingredient.model';
 
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
+  startedEditing = new Subject<number>();
 
   private ingredients: Ingredient[] = [
     new Ingredient('Apple', 5)
   ];
+
+  getIngredient(index: number) {
+    return this.ingredients[index];
+  }
 
   getIngredients(): Ingredient[] {
     return this.ingredients.slice();
