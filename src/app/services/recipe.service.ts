@@ -35,11 +35,11 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
-  getRecipeByIndex(index: number) {
+  getRecipeByIndex(index: number): Recipe {
     return this.recipes[index];
   }
 
-  onAddToShoppingList(ingredients: Ingredient[]) {
+  onAddToShoppingList(ingredients: Ingredient[]): void {
     this.shoppingListService.addIngredients(ingredients);
   }
 }
