@@ -35,7 +35,11 @@ export class RecipeEditComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.recipeForm);
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
   }
 
   private initForm() {
@@ -65,7 +69,7 @@ export class RecipeEditComponent implements OnInit {
 
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName, Validators.required),
-      imagePath: new FormControl(recipeImgPath, Validators.required),
+      imgPath: new FormControl(recipeImgPath, Validators.required),
       description: new FormControl(recipeDescription, Validators.required),
       ingredients: this.recipeIngredients
     });
