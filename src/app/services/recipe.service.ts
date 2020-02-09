@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Subject } from 'rxjs';
 
@@ -6,6 +7,7 @@ import { ShoppingListService } from './shopping-list.service';
 
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../models/ingredient.model';
+
 
 @Injectable()
 export class RecipeService {
@@ -32,7 +34,15 @@ export class RecipeService {
     )
   ];
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private http: HttpClient,
+    private shoppingListService: ShoppingListService
+  ) {}
+
+  storeRecipes() {
+    this.http.put('https://angulardevguide.firebaseio.com/recipes.json', this.recipes)
+        .subscribe((res: Response) => console.log(res));
+  }
 
   getRecipes(): Recipe[] {
     return this.recipes.slice();
