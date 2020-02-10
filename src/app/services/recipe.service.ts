@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { ShoppingListService } from './shopping-list.service';
@@ -21,18 +21,18 @@ export class RecipeService {
   ) {}
 
   fetchRecipes() {
-    this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json')
-        .pipe(map(recipes => {
-          return recipes.map(recipe => {
-            return {
-              ...recipe,
-              ingredients: recipe.ingredients ? recipe.ingredients : []
-            };
-          });
-        }))
-        .subscribe((res) => {
-          this.setRecipes(res);
-        });
+    return this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json')
+               .pipe(map(recipes => {
+                   return recipes.map(recipe => {
+                     return {
+                       ...recipe,
+                       ingredients: recipe.ingredients ? recipe.ingredients : []
+                     };
+                   });
+                 }),
+                 tap(recipes => {
+                   this.setRecipes(recipes);
+                 }));
   }
 
   storeRecipes() {

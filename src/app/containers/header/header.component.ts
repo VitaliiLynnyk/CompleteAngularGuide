@@ -8,4 +8,8 @@ import { RecipeService } from '../../services/recipe.service';
 })
 export class HeaderComponent {
   constructor(private recipeService: RecipeService) {}
+
+  fetchRecipes() {
+    this.recipeService.fetchRecipes().subscribe();
+  }
 }
