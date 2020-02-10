@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { ShoppingListService } from './shopping-list.service';
 
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../models/ingredient.model';
-
 
 @Injectable()
 export class RecipeService {
@@ -21,8 +21,16 @@ export class RecipeService {
   ) {}
 
   fetchRecipes() {
-    this.http.get('https://angulardevguide.firebaseio.com/recipes.json')
-        .subscribe((res: Recipe[]) => {
+    this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json')
+        .pipe(map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }))
+        .subscribe((res) => {
           this.setRecipes(res);
         });
   }
