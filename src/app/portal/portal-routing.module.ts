@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { RecipeResolverService } from '../services/recipe-resolver.service';
 
+import { AuthComponent } from '../containers/auth/auth.component';
 import { RecipesComponent } from '../containers/recipes/recipes.component';
 import { RecipeEditComponent } from '../containers/recipes/recipe-edit/recipe-edit.component';
 import { ShoppingListComponent } from '../containers/shopping-list/shopping-list.component';
@@ -46,6 +47,10 @@ const appRoutes: Routes = [
   {
     path: 'shopping-list',
     component: ShoppingListComponent
+  },
+  {
+    path: 'auth',
+    component: AuthComponent
   },
   {
     path: '**',
