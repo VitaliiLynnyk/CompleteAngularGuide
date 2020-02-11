@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AuthService } from './services/auth.service';
 import { RecipeService } from './services/recipe.service';
 import { ShoppingListService } from './services/shopping-list.service';
 
@@ -19,6 +20,7 @@ import { AppComponent } from './app.component';
     HttpClientModule
   ],
   providers: [
+    AuthService,
     RecipeService,
     ShoppingListService
   ],
