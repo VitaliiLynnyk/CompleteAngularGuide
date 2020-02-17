@@ -14,6 +14,7 @@ import { AuthResponse } from '../interfases/auth.response';
 @Injectable()
 export class AuthService {
   user = new BehaviorSubject<UserModel>(null);
+  private tokenExpTimer: any;
 
   constructor(
     private http: HttpClient,
@@ -63,12 +64,27 @@ export class AuthService {
 
     if (loadedUser.getToken) {
       this.user.next(loadedUser);
+      const expDuration = new Date(userData.tokenExpDate).getTime() - new Date().getTime();
+      this.autoLogOut(expDuration);
     }
   }
 
   logOut() {
     this.user.next(null);
     this.router.navigate([ '/auth' ]);
+    localStorage.removeItem('userData');
+
+    if (this.tokenExpTimer) {
+      clearTimeout(this.tokenExpTimer);
+    }
+    this.tokenExpTimer = null;
+  }
+
+  autoLogOut(expDuration: number) {
+    this.tokenExpTimer = setTimeout(() => {
+      this.logOut();
+      }, expDuration
+    );
   }
 
   private handleAuth(email: string, userId: string, token: string, expIn: number) {
@@ -76,6 +92,7 @@ export class AuthService {
     const user = new UserModel(email, userId, token, expDate);
 
     this.user.next(user);
+    this.autoLogOut(expIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
