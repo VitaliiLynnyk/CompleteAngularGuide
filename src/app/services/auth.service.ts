@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -14,7 +15,10 @@ import { AuthResponse } from '../interfases/auth.response';
 export class AuthService {
   user = new BehaviorSubject<UserModel>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   signUp(email: string, pwd: string) {
     return this.http.post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.fireBaseAPIKey}`, {
@@ -36,6 +40,11 @@ export class AuthService {
       catchError(this.handleError),
       tap(resData => this.handleAuth(resData.expiresIn, resData.localId, resData.idToken, +resData.expiresIn))
     );
+  }
+
+  logOut() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
   }
 
   private handleAuth(email: string, userId: string, token: string, expIn: number) {
