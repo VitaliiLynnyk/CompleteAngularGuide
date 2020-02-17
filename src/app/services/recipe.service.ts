@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { map, tap } from 'rxjs/operators';
+import { exhaustMap, map, take, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
+import { AuthService } from './auth.service';
 import { ShoppingListService } from './shopping-list.service';
 
 import { Recipe } from '../models/recipe.model';
@@ -17,22 +18,29 @@ export class RecipeService {
 
   constructor(
     private http: HttpClient,
-    private shoppingListService: ShoppingListService
+    private shoppingListService: ShoppingListService,
+    private authService: AuthService
   ) {}
 
   fetchRecipes() {
-    return this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json')
-               .pipe(map(recipes => {
-                   return recipes.map(recipe => {
-                     return {
-                       ...recipe,
-                       ingredients: recipe.ingredients ? recipe.ingredients : []
-                     };
-                   });
-                 }),
-                 tap(recipes => {
-                   this.setRecipes(recipes);
-                 }));
+    return this.authService.user.pipe(
+      take(1),
+      exhaustMap(user => {
+        return this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json', {
+          params: new HttpParams().set('auth', user.getToken)
+        });
+      }),
+      map(recipes => {
+        return recipes.map(recipe => {
+          return {
+            ...recipe,
+            ingredients: recipe.ingredients ? recipe.ingredients : []
+          };
+        });
+      }),
+      tap(recipes => {
+        this.setRecipes(recipes);
+      }));
   }
 
   storeRecipes() {
