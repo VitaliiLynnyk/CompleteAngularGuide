@@ -42,15 +42,41 @@ export class AuthService {
     );
   }
 
+  autoLogIn() {
+    const userData: {
+      email: string,
+      id: string,
+      token: string,
+      tokenExpDate: string
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new UserModel(
+      userData.email,
+      userData.id,
+      userData.token,
+      new Date(userData.tokenExpDate)
+    );
+
+    if (loadedUser.getToken) {
+      this.user.next(loadedUser);
+    }
+  }
+
   logOut() {
     this.user.next(null);
-    this.router.navigate(['/auth']);
+    this.router.navigate([ '/auth' ]);
   }
 
   private handleAuth(email: string, userId: string, token: string, expIn: number) {
     const expDate = new Date(new Date().getTime() + expIn * 1000);
     const user = new UserModel(email, userId, token, expDate);
+
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
