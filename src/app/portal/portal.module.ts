@@ -15,5 +15,4 @@ import { PortalComponent } from './portal.component';
   exports: [ PortalComponent ],
   declarations: [ PortalComponent ]
 })
-export class PortalPageModule {
-}
+export class PortalPageModule {}

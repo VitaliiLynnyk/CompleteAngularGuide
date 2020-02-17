@@ -7,6 +7,8 @@ import { RecipeService } from './services/recipe.service';
 import { ShoppingListService } from './services/shopping-list.service';
 import { AuthInterceptorService } from './containers/auth/auth.interceptor.service';
 
+import { AuthGuard } from './containers/auth/auth.guard';
+
 import { PortalPageModule } from './portal/portal.module';
 
 import { AppComponent } from './app.component';
@@ -24,6 +26,7 @@ import { AppComponent } from './app.component';
     AuthService,
     RecipeService,
     ShoppingListService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
