@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+
+import { UserModel } from '../models/user.model';
 
 import { AuthResponse } from '../interfases/auth.response';
 
 @Injectable()
 export class AuthService {
+  user = new Subject<UserModel>();
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +21,10 @@ export class AuthService {
       email,
       password: pwd,
       returnSecureToken: true
-    }).pipe(catchError(this.handleError));
+    }).pipe(
+      catchError(this.handleError),
+      tap(resData => this.handleAuth(resData.expiresIn, resData.localId, resData.idToken, +resData.expiresIn))
+    );
   }
 
   signIn(email: string, pwd: string) {
@@ -26,7 +32,16 @@ export class AuthService {
       email,
       password: pwd,
       returnSecureToken: true
-    }).pipe(catchError(this.handleError));
+    }).pipe(
+      catchError(this.handleError),
+      tap(resData => this.handleAuth(resData.expiresIn, resData.localId, resData.idToken, +resData.expiresIn))
+    );
+  }
+
+  private handleAuth(email: string, userId: string, token: string, expIn: number) {
+    const expDate = new Date(new Date().getTime() + expIn * 1000);
+    const user = new UserModel(email, userId, token, expDate);
+    this.user.next(user);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
