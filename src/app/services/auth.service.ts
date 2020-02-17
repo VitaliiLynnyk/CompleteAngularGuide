@@ -6,7 +6,7 @@ import { throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
-import { AuthSignUpResponse } from '../interfases/auth.sign-up.response';
+import { AuthResponse } from '../interfases/auth.response';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signUp(email: string, pwd: string) {
-    return this.http.post<AuthSignUpResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.fireBaseAPIKey}`, {
+    return this.http.post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.fireBaseAPIKey}`, {
       email,
       password: pwd,
       returnSecureToken: true
@@ -34,5 +34,13 @@ export class AuthService {
 
       return throwError(errorMsg);
     }));
+  }
+
+  signIn(email: string, pwd: string) {
+    return this.http.post<AuthResponse>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.fireBaseAPIKey}`, {
+      email,
+      password: pwd,
+      returnSecureToken: true
+    });
   }
 }
