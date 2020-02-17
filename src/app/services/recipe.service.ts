@@ -23,13 +23,7 @@ export class RecipeService {
   ) {}
 
   fetchRecipes() {
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        return this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json', {
-          params: new HttpParams().set('auth', user.getToken)
-        });
-      }),
+    return this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json').pipe(
       map(recipes => {
         return recipes.map(recipe => {
           return {
@@ -40,7 +34,8 @@ export class RecipeService {
       }),
       tap(recipes => {
         this.setRecipes(recipes);
-      }));
+      })
+    );
   }
 
   storeRecipes() {
