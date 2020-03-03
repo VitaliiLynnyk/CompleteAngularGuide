@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownDirective } from '../directives/dropdown.directive';
 
 import { AuthComponent } from './auth/auth.component';
+import { AlertComponent } from './alert/alert.component';
 import { HeaderComponent } from './header/header.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
@@ -25,6 +26,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
   ],
   exports: [
     AuthComponent,
+    AlertComponent,
     HeaderComponent,
     RecipesComponent,
     RecipeEditComponent,
@@ -37,6 +39,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
   ],
   declarations: [
     AuthComponent,
+    AlertComponent,
     HeaderComponent,
     RecipesComponent,
     DropdownDirective,
@@ -49,4 +52,4 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     RecipeInitialComponent
   ]
 })
-export class ContainerModule {}
+export class ContainerModule { }
