@@ -6,7 +6,7 @@ export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
 
-
+  private ingredients;
 
   getIngredient(index: number) {
     return this.ingredients[ index ];

@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+
+import { shoppingListReducer } from './containers/shopping-list/store/shopping-list.reducer';
 
 import { AuthService } from './services/auth.service';
 import { RecipeService } from './services/recipe.service';
@@ -18,6 +21,7 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
+    StoreModule.forRoot({ shoppingList: shoppingListReducer }),
     BrowserModule,
     PortalPageModule,
     HttpClientModule
