@@ -4,11 +4,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { exhaustMap, map, take, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
+import { Store } from '@ngrx/store';
+
 import { AuthService } from './auth.service';
 import { ShoppingListService } from './shopping-list.service';
 
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../models/ingredient.model';
+
+import * as ShoppingListActions from '../containers/shopping-list/store/shopping-list.actions';
 
 @Injectable()
 export class RecipeService {
@@ -19,8 +23,9 @@ export class RecipeService {
   constructor(
     private http: HttpClient,
     private shoppingListService: ShoppingListService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+  ) { }
 
   fetchRecipes() {
     return this.http.get<Recipe[]>('https://angulardevguide.firebaseio.com/recipes.json').pipe(
@@ -40,7 +45,7 @@ export class RecipeService {
 
   storeRecipes() {
     this.http.put('https://angulardevguide.firebaseio.com/recipes.json', this.recipes)
-        .subscribe((res: Recipe[]) => console.log(res));
+      .subscribe((res: Recipe[]) => console.log(res));
   }
 
   getRecipes(): Recipe[] {
@@ -48,11 +53,11 @@ export class RecipeService {
   }
 
   getRecipeByIndex(index: number): Recipe {
-    return this.recipes[index];
+    return this.recipes[ index ];
   }
 
   onAddToShoppingList(ingredients: Ingredient[]): void {
-    this.shoppingListService.addIngredients(ingredients);
+    this.store.dispatch(new ShoppingListActions.AddIngrediends(ingredients));
   }
 
   setRecipes(recipes: Recipe[]) {
@@ -66,7 +71,7 @@ export class RecipeService {
   }
 
   updateRecipe(index: number, recipe: Recipe) {
-    this.recipes[index] = recipe;
+    this.recipes[ index ] = recipe;
     this.recipesChanged.next(this.recipes.slice());
   }
 
