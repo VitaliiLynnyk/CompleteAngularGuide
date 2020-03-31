@@ -5,11 +5,12 @@ import { Store } from '@ngrx/store';
 
 import { Subscription } from 'rxjs';
 
-import * as ShoppingListActions from '../store/shopping-list.actions';
-
 import { Ingredient } from '../../../models/ingredient.model';
 
 import { ShoppingListService } from '../../../services/shopping-list.service';
+
+import * as ShoppingListActions from '../store/shopping-list.actions';
+import * as fromShoppingList from '../store/shopping-list.reducer';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -28,7 +29,7 @@ export class ShoppingEditComponent {
 
   constructor(
     private shoppingListService: ShoppingListService,
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+    private store: Store<fromShoppingList.AppState>
   ) { }
 
   addItem(form: NgForm) {

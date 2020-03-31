@@ -13,6 +13,7 @@ import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../models/ingredient.model';
 
 import * as ShoppingListActions from '../containers/shopping-list/store/shopping-list.actions';
+import * as fromShoppingList from '../containers/shopping-list/store/shopping-list.reducer';
 
 @Injectable()
 export class RecipeService {
@@ -24,7 +25,7 @@ export class RecipeService {
     private http: HttpClient,
     private shoppingListService: ShoppingListService,
     private authService: AuthService,
-    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+    private store: Store<fromShoppingList.AppState>
   ) { }
 
   fetchRecipes() {
