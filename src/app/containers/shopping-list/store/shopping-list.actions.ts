@@ -5,6 +5,7 @@ import { Ingredient } from '../../../models/ingredient.model';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const ADD_INGREDIENTS = 'ADD_INGREDIENTS';
 export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT';
+export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 
 export class AddIngrediend implements Action {
   readonly type = ADD_INGREDIENT;
@@ -24,4 +25,10 @@ export class UpdateIngrediend implements Action {
   constructor(public payload: { index: number, ingredient: Ingredient }) { }
 }
 
-export type ShoppingListActions = AddIngrediend | AddIngrediends | UpdateIngrediend;
+export class DeleteIngrediend implements Action {
+  readonly type = DELETE_INGREDIENT;
+
+  constructor(public payload: number) { }
+}
+
+export type ShoppingListActions = AddIngrediend | AddIngrediends | UpdateIngrediend | DeleteIngrediend;
